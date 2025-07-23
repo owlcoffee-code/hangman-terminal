@@ -1,0 +1,13 @@
+*.o
+.DS_Store
+/build/
+
+# Editor swap/backup files
+*~
+*.swp
+*.swo
+*.bak
+
+# Valgrind/memory check outputs
+vgcore.*
+
