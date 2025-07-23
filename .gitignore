@@ -11,3 +11,5 @@
 # Valgrind/memory check outputs
 vgcore.*
 
+demo2.c
+demo2
