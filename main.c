@@ -27,14 +27,16 @@ void init_game(void);
 void main_loop(void);
 void game_over(void);
 void print_wrong_letter(void);
+
+int print_title(void);
 int main(void)
 {
+ 
    int total_frames = load_frames("charset.txt");
    if(total_frames < 1 ){
       fprintf(stderr,"Failed to load any frames.\n");
       return 1;
    }
-
 
    init_game();
    main_loop();
@@ -58,6 +60,7 @@ void init_game(void)
 
 void main_loop(void)
 {
+   print_title();
    print_frame(wrong_guess_count);
    while(!display_word_complete && wrong_guess_count < MAX_WRONG_GUESSES){
 
@@ -107,6 +110,7 @@ void main_loop(void)
          display_word_complete = true;
       }
       CLEAR();
+      print_title();
       print_frame(wrong_guess_count);
       print_wrong_letter();
    } 
@@ -149,6 +153,7 @@ int load_frames( const char *filename )
 }
 
 
+
 void print_frame(int frame_num)
 {
    for(int i = 0; i < MAX_LINES; i++){
@@ -167,3 +172,21 @@ void print_wrong_letter(void)
    printf("\n");
 }
 
+
+int print_title(void)
+{
+   FILE *title = fopen("title.txt", "rb");
+   if(!title){
+      perror("couldn't find title document\n");
+      return -1;
+   }
+
+   char main_title[MAX_LINES_LEN];
+
+   while(fgets(main_title, sizeof(main_title), title)){
+      printf("%s", main_title);
+   }
+   printf("\n\n"); 
+   fclose(title);
+   return 0;
+}
