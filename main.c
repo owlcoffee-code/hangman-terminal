@@ -26,7 +26,7 @@ int load_frames(const char *filename);
 void init_game(void);
 void main_loop(void);
 void game_over(void);
-
+void print_wrong_letter(void);
 int main(void)
 {
    int total_frames = load_frames("charset.txt");
@@ -64,11 +64,6 @@ void main_loop(void)
       //Show game state
       printf("\nYour Word: %s\n", display_word);
       printf("Wrong guesses left: %d\n", MAX_WRONG_GUESSES - wrong_guess_count);
-      printf("Guessed letters: ");
-      for(int i = 0; i < guessed_count; i++){
-         printf("%c", guessed_letters_string[i]);
-      }
-      printf("\n");
 
       //PROMPT THE USER
       printf("Enter a letter: ");
@@ -113,7 +108,7 @@ void main_loop(void)
       }
       CLEAR();
       print_frame(wrong_guess_count);
-      
+      print_wrong_letter();
    } 
 
 }
@@ -158,7 +153,17 @@ void print_frame(int frame_num)
 {
    for(int i = 0; i < MAX_LINES; i++){
       if(strlen(frames[frame_num][i]) > 0){
-         printf("%s", frames[frame_num][i]);
+         printf("  %s", frames[frame_num][i]);
       }
    }
+
 }
+
+void print_wrong_letter(void)
+{
+   for(int i = 0; i < guessed_count; i++){
+      printf("%2c", guessed_letters_string[i]);
+   }
+   printf("\n");
+}
+
