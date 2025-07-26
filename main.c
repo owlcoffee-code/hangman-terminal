@@ -12,7 +12,7 @@
 #define MAX_LINES_LEN 100
 
 bool display_word_complete = false;
-char secret_word[] = "apples";
+char secret_word[] = "i hate apples";
 char display_word[MAX_WORD_LEN +1];
 char guessed_letter;
 char guessed_letters_string[MAX_GUESSES];
@@ -51,7 +51,11 @@ int main(void)
 void init_game(void)
 {
    for(int i = 0; i < strlen(secret_word); i++){
-      display_word[i] = '_';
+      if(secret_word[i] == ' '){
+         display_word[i] = ' ';
+      }else {
+         display_word[i] = '-';
+      }
    }
 
    display_word[strlen(secret_word)] = '\0';
@@ -158,7 +162,7 @@ void print_frame(int frame_num)
 {
    for(int i = 0; i < MAX_LINES; i++){
       if(strlen(frames[frame_num][i]) > 0){
-         printf("  %s", frames[frame_num][i]);
+         printf("   %s", frames[frame_num][i]);
       }
    }
 
